@@ -1,5 +1,4 @@
 from django.db import models
-
 from kolibri.core.auth.models import FacilityUser
 
 

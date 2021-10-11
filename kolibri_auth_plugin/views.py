@@ -1,6 +1,8 @@
+from django.contrib.auth import authenticate
+from django.contrib.auth import login
+from django.http import HttpResponseForbidden
+from django.http import HttpResponseRedirect
 from django.views import View
-from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.contrib.auth import authenticate, login
 
 
 class LoginView(View):
