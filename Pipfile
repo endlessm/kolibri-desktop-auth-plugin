@@ -1,0 +1,14 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flake8 = "==3.8.3"
+pre-commit = "==1.15.1"
+twine = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.7"
