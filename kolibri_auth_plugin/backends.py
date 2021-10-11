@@ -9,6 +9,7 @@ class TokenAuthBackend:
             "uid": 1000,
             "gid": 1000,
             "groups": [],
+            "admin": True,
         }
 
     def authenticate(self, request, token=None, **kwargs):
@@ -18,7 +19,8 @@ class TokenAuthBackend:
 
         uid = user_details["uid"]
         username = user_details["username"]
-        user = DaemonAuthUser.get_or_create(uid, username)
+        admin = user_details["admin"]
+        user = DaemonAuthUser.get_or_create(uid, username, admin)
         return user.user
 
     def get_user(self, user_id):
