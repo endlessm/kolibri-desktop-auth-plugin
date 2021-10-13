@@ -1,16 +1,24 @@
+import dbus
+
 from .models import DaemonAuthUser
+
+
+DBUS_ID = "org.learningequality.Kolibri.Daemon"
+DBUS_PATH = "/" + DBUS_ID.replace(".", "/")
+IFACE = "org.learningequality.Kolibri.Daemon.Private"
 
 
 class TokenAuthBackend:
     def _get_user_details(self, token):
-        # TODO: call the real kolibri-daemon to GetUserDetails
-        return {
-            "username": "eosuser",
-            "uid": 1000,
-            "gid": 1000,
-            "groups": [],
-            "admin": True,
-        }
+        bus = dbus.SessionBus()
+        obj = bus.get_object(DBUS_ID, DBUS_PATH)
+        iface = dbus.Interface(obj, IFACE)
+        try:
+            variant = iface.GetUserDetails(token)
+        except Exception:
+            return None
+
+        return variant
 
     def authenticate(self, request, token=None, **kwargs):
         user_details = self._get_user_details(token)
