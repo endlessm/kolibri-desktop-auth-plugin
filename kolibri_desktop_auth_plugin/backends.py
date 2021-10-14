@@ -25,10 +25,7 @@ class TokenAuthBackend:
         if not user_details:
             return None
 
-        uid = user_details["uid"]
-        username = user_details["username"]
-        admin = user_details["admin"]
-        user = DaemonAuthUser.get_or_create(uid, username, admin)
+        user = DaemonAuthUser.objects.get_or_create(**user_details)
         return user.user
 
     def get_user(self, user_id):

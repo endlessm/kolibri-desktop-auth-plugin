@@ -2,12 +2,26 @@ from django.db import models
 from kolibri.core.auth.models import FacilityUser
 
 
+class DaemonAuthUserManager(models.Manager):
+    def get_or_create(
+        self, uid=None, username=None, fullname=None, admin=False, **kwargs
+    ):
+        try:
+            user = DaemonAuthUser.objects.get(uid=uid)
+        except DaemonAuthUser.DoesNotExist:
+            user = DaemonAuthUser.create_user(uid, username, fullname, admin)
+
+        return user
+
+
 class DaemonAuthUser(models.Model):
     uid = models.CharField("uid", max_length=10, primary_key=True)
     user = models.ForeignKey(FacilityUser, on_delete=models.CASCADE)
 
+    objects = DaemonAuthUserManager()
+
     @classmethod
-    def create_user(cls, uid, username, admin):
+    def create_user(cls, uid, username, fullname=None, admin=False):
         create_user = FacilityUser.objects.create_user
         if admin:
             create_user = FacilityUser.objects.create_superuser
@@ -25,19 +39,11 @@ class DaemonAuthUser(models.Model):
         kolibri_user.set_unusable_password()
         kolibri_user.gender = "NOT_SPECIFIED"
         kolibri_user.birth_year = "NOT_SPECIFIED"
+        kolibri_user.full_name = fullname
         kolibri_user.save()
 
         user = cls(uid=uid, user=kolibri_user)
         user.save()
-
-        return user
-
-    @classmethod
-    def get_or_create(cls, uid, username, admin=False):
-        try:
-            user = cls.objects.get(uid=uid)
-        except cls.DoesNotExist:
-            user = cls.create_user(uid, username, admin)
 
         return user
 
