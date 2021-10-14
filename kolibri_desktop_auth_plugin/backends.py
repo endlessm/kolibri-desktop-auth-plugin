@@ -11,7 +11,11 @@ IFACE = "org.learningequality.Kolibri.Daemon.Private"
 class TokenAuthBackend:
     def _get_user_details(self, token):
         bus = dbus.SessionBus()
-        obj = bus.get_object(DBUS_ID, DBUS_PATH)
+        try:
+            obj = bus.get_object(DBUS_ID, DBUS_PATH)
+        except dbus.exceptions.DBusException:
+            return None
+
         iface = dbus.Interface(obj, IFACE)
         try:
             variant = iface.GetUserDetails(token)
