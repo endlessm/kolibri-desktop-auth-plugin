@@ -5,7 +5,7 @@ from .models import DaemonAuthUser
 
 DBUS_ID = "org.learningequality.Kolibri.Daemon"
 DBUS_PATH = "/" + DBUS_ID.replace(".", "/")
-IFACE = "org.learningequality.Kolibri.Daemon.Private"
+IFACE = DBUS_ID + ".Private"
 
 
 class TokenAuthBackend:
