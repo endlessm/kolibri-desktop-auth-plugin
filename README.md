@@ -23,7 +23,7 @@ repository:
 After enabling the fake dbus daemon you can try to autologin in your kolibri
 with the plugin opening the following url in your browser:
 
-http://localhost:8000/daemon-auth/login/TOKEN1
+http://localhost:8000/kolibri_desktop_auth_plugin/login/TOKEN1
 
 You can change the TOKEN at the end of the url above to test with different
 user data:
@@ -37,4 +37,4 @@ page.
 It's also possible to redirect after the authentication passing the next url as
 a get parameter to the url, for example:
 
-http://localhost:8000/daemon-auth/login/TOKEN1?next=/learn
+http://localhost:8000/kolibri_desktop_auth_plugin/login/TOKEN1?next=/learn

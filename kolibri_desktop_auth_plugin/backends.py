@@ -1,6 +1,6 @@
 import dbus
 
-from .models import DaemonAuthUser
+from .models import DesktopUser
 
 
 DBUS_ID = "org.learningequality.Kolibri.Daemon"
@@ -29,11 +29,11 @@ class TokenAuthBackend:
         if not user_details:
             return None
 
-        user = DaemonAuthUser.objects.get_or_create(**user_details)
+        user = DesktopUser.objects.get_or_create(**user_details)
         return user.user
 
     def get_user(self, user_id):
         try:
-            return DaemonAuthUser.objects.get(user__pk=user_id).user
-        except DaemonAuthUser.DoesNotExist:
+            return DesktopUser.objects.get(user__pk=user_id).user
+        except DesktopUser.DoesNotExist:
             return None

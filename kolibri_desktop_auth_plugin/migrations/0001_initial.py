@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="DaemonAuthUser",
+            name="DesktopUser",
             fields=[
                 (
                     "uid",

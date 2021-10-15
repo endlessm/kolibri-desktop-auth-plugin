@@ -2,23 +2,23 @@ from django.db import models
 from kolibri.core.auth.models import FacilityUser
 
 
-class DaemonAuthUserManager(models.Manager):
+class DesktopUserManager(models.Manager):
     def get_or_create(
         self, uid=None, username=None, fullname=None, admin=False, **kwargs
     ):
         try:
-            user = DaemonAuthUser.objects.get(uid=uid)
-        except DaemonAuthUser.DoesNotExist:
-            user = DaemonAuthUser.create_user(uid, username, fullname, admin)
+            user = DesktopUser.objects.get(uid=uid)
+        except DesktopUser.DoesNotExist:
+            user = DesktopUser.create_user(uid, username, fullname, admin)
 
         return user
 
 
-class DaemonAuthUser(models.Model):
+class DesktopUser(models.Model):
     uid = models.CharField("uid", max_length=10, primary_key=True)
     user = models.ForeignKey(FacilityUser, on_delete=models.CASCADE)
 
-    objects = DaemonAuthUserManager()
+    objects = DesktopUserManager()
 
     @classmethod
     def create_user(cls, uid, username, fullname=None, admin=False):
