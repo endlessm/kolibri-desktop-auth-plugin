@@ -10,7 +10,7 @@ from dbus_next.service import Variant
 
 DBUS_ID = "org.learningequality.Kolibri.Daemon"
 DBUS_PATH = "/" + DBUS_ID.replace(".", "/")
-IFACE = "org.learningequality.Kolibri.Daemon.Private"
+IFACE = DBUS_ID + ".Private"
 
 
 USERS = {
