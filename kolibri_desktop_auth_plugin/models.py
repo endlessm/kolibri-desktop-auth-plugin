@@ -33,7 +33,7 @@ class DaemonAuthUser(models.Model):
             n += 1
             uname = "{}_{}".format(username, n)
 
-        create_user(username=uname, password="not set")
+        create_user(username=uname, password="NOT_SPECIFIED")
 
         kolibri_user = FacilityUser.objects.get(username=uname)
         kolibri_user.set_unusable_password()
