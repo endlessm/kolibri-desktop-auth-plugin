@@ -16,15 +16,15 @@ IFACE = DBUS_ID + ".Private"
 USERS = {
     "TOKEN1": {
         "username": Variant("s", "adminuser"),
-        "fullname": Variant("s", "EOS Admin Users"),
+        "fullname": Variant("s", "Desktop Admin Users"),
         "uid": Variant("i", 1000),
         "gid": Variant("i", 1000),
         "groups": Variant("as", []),
         "admin": Variant("b", True),
     },
     "TOKEN2": {
-        "username": Variant("s", "eosuser"),
-        "fullname": Variant("s", "EOS Normal Users"),
+        "username": Variant("s", "regularuser"),
+        "fullname": Variant("s", "Desktop Regular Users"),
         "uid": Variant("i", 1001),
         "gid": Variant("i", 1001),
         "groups": Variant("as", []),
