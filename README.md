@@ -38,3 +38,11 @@ It's also possible to redirect after the authentication passing the next url as
 a get parameter to the url, for example:
 
 http://localhost:8000/kolibri_desktop_auth_plugin/login/TOKEN1?next=/learn
+
+# Releasing
+
+```
+# Bump the release version, then:
+python setup.py bdist_wheel --universal
+twine upload -s dist/*
+```
