@@ -4,13 +4,19 @@ from kolibri.core.auth.models import FacilityUser
 
 class DesktopUserManager(models.Manager):
     def get_or_create(
-        self, user_id=None, user_name=None, full_name=None, is_admin=False,
+        self,
+        user_id=None,
+        user_name=None,
+        full_name=None,
+        is_admin=False,
         **kwargs,
     ):
         try:
             user = DesktopUser.objects.get(uid=user_id)
         except DesktopUser.DoesNotExist:
-            user = DesktopUser.create_user(user_id, user_name, full_name, is_admin)
+            user = DesktopUser.create_user(
+                user_id, user_name, full_name, is_admin
+            )
 
         return user
 

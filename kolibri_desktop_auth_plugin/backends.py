@@ -11,11 +11,9 @@ IFACE = DBUS_ID + ".Private"
 class TokenAuthBackend:
     def _get_user_details(self, token):
         bus = Gio.bus_get_sync(Gio.BusType.SESSION, None)
-        proxy = Gio.DBusProxy.new_sync(bus, 0, None,
-                                       DBUS_ID,
-                                       DBUS_PATH,
-                                       IFACE,
-                                       None)
+        proxy = Gio.DBusProxy.new_sync(
+            bus, 0, None, DBUS_ID, DBUS_PATH, IFACE, None
+        )
 
         try:
             details = proxy.CheckLoginToken("(s)", token)
@@ -29,7 +27,7 @@ class TokenAuthBackend:
         if not user_details:
             return None
 
-        if not "user_id" in user_details:
+        if "user_id" not in user_details:
             return None
 
         user = DesktopUser.objects.get_or_create(**user_details)
