@@ -1,4 +1,4 @@
-import dbus
+from gi.repository import Gio
 
 from .models import DesktopUser
 
@@ -10,19 +10,19 @@ IFACE = DBUS_ID + ".Private"
 
 class TokenAuthBackend:
     def _get_user_details(self, token):
-        bus = dbus.SessionBus()
-        try:
-            obj = bus.get_object(DBUS_ID, DBUS_PATH)
-        except dbus.exceptions.DBusException:
-            return None
+        bus = Gio.bus_get_sync(Gio.BusType.SESSION, None)
+        proxy = Gio.DBusProxy.new_sync(bus, 0, None,
+                                       DBUS_ID,
+                                       DBUS_PATH,
+                                       IFACE,
+                                       None)
 
-        iface = dbus.Interface(obj, IFACE)
         try:
-            variant = iface.GetUserDetails(token)
+            details = proxy.GetUserDetails("(s)", token)
         except Exception:
             return None
 
-        return variant
+        return details
 
     def authenticate(self, request, token=None, **kwargs):
         user_details = self._get_user_details(token)

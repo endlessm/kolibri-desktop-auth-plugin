@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 flake8 = "==3.8.3"
 pre-commit = "==1.15.1"
-dbus-python = "==1.2.16"
 twine = "*"
 
 [dev-packages]
