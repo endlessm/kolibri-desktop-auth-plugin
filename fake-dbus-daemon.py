@@ -9,26 +9,22 @@ from dbus_next.service import Variant
 
 
 DBUS_ID = "org.learningequality.Kolibri.Daemon"
-DBUS_PATH = "/" + DBUS_ID.replace(".", "/")
+DBUS_PATH = "/" + DBUS_ID.replace(".", "/") + "/Private"
 IFACE = DBUS_ID + ".Private"
 
 
 USERS = {
     "TOKEN1": {
-        "username": Variant("s", "adminuser"),
-        "fullname": Variant("s", "Desktop Admin Users"),
-        "uid": Variant("i", 1000),
-        "gid": Variant("i", 1000),
-        "groups": Variant("as", []),
-        "admin": Variant("b", True),
+        "user_name": Variant("s", "adminuser"),
+        "full_name": Variant("s", "Desktop Admin Users"),
+        "user_id": Variant("i", 1000),
+        "is_admin": Variant("b", True),
     },
     "TOKEN2": {
-        "username": Variant("s", "regularuser"),
-        "fullname": Variant("s", "Desktop Regular Users"),
-        "uid": Variant("i", 1001),
-        "gid": Variant("i", 1001),
-        "groups": Variant("as", []),
-        "admin": Variant("b", False),
+        "user_name": Variant("s", "regularuser"),
+        "full_name": Variant("s", "Desktop Regular Users"),
+        "user_id": Variant("i", 1001),
+        "is_admin": Variant("b", False),
     },
 }
 

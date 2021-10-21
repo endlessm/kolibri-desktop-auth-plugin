@@ -4,7 +4,7 @@ from .models import DesktopUser
 
 
 DBUS_ID = "org.learningequality.Kolibri.Daemon"
-DBUS_PATH = "/" + DBUS_ID.replace(".", "/")
+DBUS_PATH = "/" + DBUS_ID.replace(".", "/") + "/Private"
 IFACE = DBUS_ID + ".Private"
 
 
@@ -18,7 +18,7 @@ class TokenAuthBackend:
                                        None)
 
         try:
-            details = proxy.GetUserDetails("(s)", token)
+            details = proxy.CheckLoginToken("(s)", token)
         except Exception:
             return None
 
@@ -27,6 +27,9 @@ class TokenAuthBackend:
     def authenticate(self, request, token=None, **kwargs):
         user_details = self._get_user_details(token)
         if not user_details:
+            return None
+
+        if not "user_id" in user_details:
             return None
 
         user = DesktopUser.objects.get_or_create(**user_details)
