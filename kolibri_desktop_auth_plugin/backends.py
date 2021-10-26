@@ -30,6 +30,11 @@ class TokenAuthBackend:
         return details
 
     def authenticate(self, request, token=None, **kwargs):
+        # This method is being tried automatically by Django, but it's
+        # supposed to be called only from the view:
+        if token is None:
+            return None
+
         user_details = self._get_user_details(token)
         if not user_details:
             return None
