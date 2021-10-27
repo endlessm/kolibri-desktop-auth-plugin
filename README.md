@@ -39,6 +39,27 @@ a get parameter to the url, for example:
 
 http://localhost:8000/kolibri_desktop_auth_plugin/login/TOKEN1?next=/learn
 
+# Development
+
+Setup the Python environment:
+
+```
+pipenv install
+```
+
+Setup pre-commit:
+
+```
+pipenv run pre-commit install
+```
+
+Enter the Python environment for development:
+
+```
+pipenv shell
+```
+
+
 # Releasing
 
 ```
