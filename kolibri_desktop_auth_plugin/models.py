@@ -1,5 +1,7 @@
 from django.db import models
+from kolibri.core.auth.constants import role_kinds
 from kolibri.core.auth.models import FacilityUser
+from kolibri.core.device.models import DevicePermissions
 
 
 class DesktopUserManager(models.Manager):
@@ -29,10 +31,6 @@ class DesktopUser(models.Model):
 
     @classmethod
     def create_user(cls, uid, user_name, full_name=None, is_admin=False):
-        create_user = FacilityUser.objects.create_user
-        if is_admin:
-            create_user = FacilityUser.objects.create_superuser
-
         # Using a different username if this is taken
         uname = user_name
         n = 0
@@ -40,7 +38,9 @@ class DesktopUser(models.Model):
             n += 1
             uname = "{}_{}".format(user_name, n)
 
-        create_user(username=uname, password="NOT_SPECIFIED")
+        FacilityUser.objects.create_user(
+            username=uname, password="NOT_SPECIFIED"
+        )
 
         kolibri_user = FacilityUser.objects.get(username=uname)
         kolibri_user.set_unusable_password()
@@ -48,6 +48,15 @@ class DesktopUser(models.Model):
         kolibri_user.birth_year = "NOT_SPECIFIED"
         kolibri_user.full_name = full_name
         kolibri_user.save()
+
+        if is_admin:
+            # make the user a facility admin
+            kolibri_user.facility.add_role(kolibri_user, role_kinds.ADMIN)
+
+            # make the user into a superuser on this device
+            DevicePermissions.objects.create(
+                user=kolibri_user, is_superuser=True, can_manage_content=True
+            )
 
         user = cls(uid=uid, user=kolibri_user)
         user.save()
