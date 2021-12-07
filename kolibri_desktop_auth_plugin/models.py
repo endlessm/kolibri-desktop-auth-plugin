@@ -1,5 +1,6 @@
 from django.db import models
 from kolibri.core.auth.models import FacilityUser
+from kolibri.utils import conf
 
 
 class DesktopUserManager(models.Manager):
@@ -30,6 +31,7 @@ class DesktopUser(models.Model):
     @classmethod
     def create_user(cls, uid, user_name, full_name=None, is_admin=False):
         create_user = FacilityUser.objects.create_user
+        is_admin = conf.OPTIONS["DesktopAuth"]["FORCE_SUPERUSER"] or is_admin
         if is_admin:
             create_user = FacilityUser.objects.create_superuser
 
