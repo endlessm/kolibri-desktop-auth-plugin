@@ -2,6 +2,7 @@ from django.db import models
 from kolibri.core.auth.constants import role_kinds
 from kolibri.core.auth.models import FacilityUser
 from kolibri.core.device.models import DevicePermissions
+from kolibri.utils import conf
 
 
 class DesktopUserManager(models.Manager):
@@ -56,6 +57,11 @@ class DesktopUser(models.Model):
             # make the user into a superuser on this device
             DevicePermissions.objects.create(
                 user=kolibri_user, is_superuser=True, can_manage_content=True
+            )
+        elif conf.OPTIONS["DesktopAuth"]["REGULAR_USERS_CAN_MANAGE_CONTENT"]:
+            # allow regular user to manage content if the setting is enabled
+            DevicePermissions.objects.create(
+                user=kolibri_user, is_superuser=False, can_manage_content=True
             )
 
         user = cls(uid=uid, user=kolibri_user)
