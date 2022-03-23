@@ -3,10 +3,10 @@ option_spec = {
         "REGULAR_USERS_CAN_MANAGE_CONTENT": {
             "type": "boolean",
             "default": False,
-            "description": (
-                "Whether to allow regular system users to ",
-                "manage content in this device.",
-            ),
+            "description": """
+                Whether to allow regular system users to manage content on
+                this device.",
+            """,
         },
     },
 }
