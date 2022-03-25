@@ -62,8 +62,31 @@ pipenv shell
 
 # Releasing
 
+## Creating a release
+
+If you are releasing a new version, use `bump-version` with with `major`, `minor`, or `patch`. For example:
+
 ```
-# Bump the release version, then:
+yarn bump-version patch
+```
+
+This creates a new commit and a git tag. Push this to the remote:
+
+```
+git push
+git push --tags
+```
+
+Create a `.whl` file:
+
+```
 python setup.py bdist_wheel --universal
+```
+
+Finally, upload the `.whl` file to PyPi:
+
+```
+twine check -s dist/*
 twine upload -s dist/*
 ```
+
