@@ -7,8 +7,9 @@ from dbus_next.service import method
 from dbus_next.service import ServiceInterface
 from dbus_next.service import Variant
 
+from kolibri_desktop_auth_plugin.config import DBUS_NAME
 
-DBUS_ID = "org.learningequality.Kolibri.Daemon"
+DBUS_ID = DBUS_NAME + ".Daemon"
 DBUS_PATH = "/" + DBUS_ID.replace(".", "/") + "/Private"
 IFACE = DBUS_ID + ".Private"
 

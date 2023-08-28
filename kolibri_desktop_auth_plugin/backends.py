@@ -1,18 +1,19 @@
 from gi.repository import Gio
 
+from .config import DBUS_NAME
 from .models import DesktopUser
 
 
 try:
     import kolibri_app.config
 except ImportError:
-    DBUS_ID = "org.learningequality.Kolibri.Daemon"
+    DBUS_ID = DBUS_NAME + ".Daemon"
     DBUS_PATH = "/" + DBUS_ID.replace(".", "/") + "/Private"
 else:
     DBUS_ID = kolibri_app.config.DAEMON_APPLICATION_ID
     DBUS_PATH = kolibri_app.config.DAEMON_PRIVATE_OBJECT_PATH
 
-IFACE = "org.learningequality.Kolibri.Daemon.Private"
+IFACE = DBUS_ID + ".Private"
 
 
 class TokenAuthBackend:
