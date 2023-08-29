@@ -12,7 +12,7 @@ else:
     DBUS_ID = kolibri_app.config.DAEMON_APPLICATION_ID
     DBUS_PATH = kolibri_app.config.DAEMON_PRIVATE_OBJECT_PATH
 
-IFACE = DBUS_ID + ".Private"
+IFACE = "org.learningequality.Kolibri.Daemon.Private"
 
 
 class TokenAuthBackend:
