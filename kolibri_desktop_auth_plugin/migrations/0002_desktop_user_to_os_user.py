@@ -13,8 +13,9 @@ def _migrate_desktop_user_to_os_user(apps, schema_editor):
         # refers to a user by username. So, we will guess that the desktop
         # user's username is the same as the Kolibri user's username, which is
         # the default behaviour except for unusual circumstances.
-        os_user = OSUser.objects.update_or_create(
-            os_username=desktop_user.user.username, defaults={"user": desktop_user.user}
+        OSUser.objects.update_or_create(
+            os_username=desktop_user.user.username,
+            defaults={"user": desktop_user.user},
         )
 
 
